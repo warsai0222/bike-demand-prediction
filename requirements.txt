@@ -1,0 +1,14 @@
+pandas
+numpy
+scikit-learn
+lightgbm
+dvc
+mlflow
+psycopg2-binary
+sqlalchemy
+streamlit
+plotly
+pytest
+python-dotenv
+matplotlib
+ipykernel
