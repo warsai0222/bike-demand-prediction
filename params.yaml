@@ -1,0 +1,74 @@
+#single source of trust for this project
+
+paths: #tells where different types of files are located in the project
+  raw_data: "data/raw/hour.csv"
+  processed_data: "data/processed/features.parquet"
+  models_dir: "models"
+  model_registry: "models/current.json"
+  prediction_log: "monitoring/prediction_log.csv"
+  log_file: "logs/project.log"
+
+split: #tells how to split the data into train and test sets
+  test_start: "2012-11-01"
+  test_end: "2012-12-31"
+
+
+folds: #each fold is [train_end_exclusive, val_start,val_end_inclusive]
+  - ["2012-05-01", "2012-05-01", "2012-06-30"]
+  - ["2012-07-01", "2012-07-01", "2012-08-31"]
+  - ["2012-09-01", "2012-09-01", "2012-10-31"]
+
+features:
+  feature_cols:
+    - hr
+    - weekday
+    - mnth
+    - season
+    - holiday
+    - workingday
+    - weathersit
+    - temp
+    - hum
+    - windspeed
+    - days_since_start
+    - cnt_lag_24h
+    - cnt_avg_prev_24h
+    - cnt_avg_prev_7d
+    - cnt_trail_avg_hr_wd_8w
+    - is_rush_hour
+  
+  categorical_features:
+    - season
+    - weathersit
+    - weekday
+    - mnth
+    - hr
+  
+  trail_avg_window_weeks: 8
+  rush_hour:
+    morning: [7,9]
+    evening: [17,19]
+  
+model:
+  target_col: "cnt"
+  params:
+    num_leaves: 32
+    learning_rate: 0.05
+    n_estimators: 300
+    min_child_samples: 40
+    random_state: 42
+    verbose: -1
+  
+mlflow:
+  experiment_name: "bike_demand_prediction_v3"
+
+monitoring:
+  #retrain trigger:flag when rolling error exceeds this multiple of validation MAE
+  drift_mae: 1.5
+  rolling_window_days: 7
+  simulated_batch_size_hours: 24 # how much "new data" arrives per simulated tick
+  
+
+
+
+    
