@@ -1,0 +1,28 @@
+artifact_path: /Users/varshithtipirneni/Desktop/Cowork Homebase/02 Projects/Bike Demand
+  Prediction/notebooks/mlruns/1/models/m-57fab8877b3d48c6b56da4da2b11408c/artifacts
+flavors:
+  lightgbm:
+    code: null
+    data: model.skops
+    lgb_version: 4.7.0
+    model_class: lightgbm.sklearn.LGBMRegressor
+    serialization_format: skops
+    skops_trusted_types:
+    - lightgbm.basic.Booster
+    - lightgbm.sklearn.LGBMRegressor
+    - collections.OrderedDict
+    - lightgbm.sklearn.LGBMClassifier
+  python_function:
+    data: model.skops
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.lightgbm
+    python_version: 3.11.16
+mlflow_version: 3.16.0
+model_id: m-57fab8877b3d48c6b56da4da2b11408c
+model_size_bytes: 1408290
+model_uuid: m-57fab8877b3d48c6b56da4da2b11408c
+prompts: null
+run_id: b3481ce636c84f84a873acd2c9b1aef7
+utc_time_created: '2026-09-12 01:59:42.571527'
