@@ -41,6 +41,7 @@ FINAL_PARAMS = _params["model"]["params"]
 
 #MLFLOW
 MLFLOW_EXPERIMENT_NAME = _params["mlflow"]["experiment_name"]
+MLFLOW_TRACKING_URI = _params["mlflow"]["tracking_uri"]
 
 #Monitoring and drift
 DRIFT_MAE_MULTIPLIER = _params["monitoring"]["drift_mae"]

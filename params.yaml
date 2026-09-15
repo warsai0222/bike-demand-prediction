@@ -61,6 +61,7 @@ model:
   
 mlflow:
   experiment_name: "bike_demand_prediction_v3"
+  tracking_uri: "sqlite:///mlflow.db"
 
 monitoring:
   #retrain trigger:flag when rolling error exceeds this multiple of validation MAE
