@@ -1,0 +1,9 @@
+artifact_location: file:///Users/varshithtipirneni/Desktop/Cowork%20Homebase/02%20Projects/Bike%20Demand%20Prediction/mlruns/839106514740808667
+creation_time: 1789162160056
+effective_trace_archival_retention: null
+experiment_id: '839106514740808667'
+last_update_time: 1789162160056
+lifecycle_stage: active
+name: bike-demand-prediction
+trace_location: null
+workspace: default

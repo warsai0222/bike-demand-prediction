@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/varshithtipirneni/Desktop/Cowork%20Homebase/02%20Projects/Bike%20Demand%20Prediction/mlruns/839106514740808667/da49972f5eeb4e9c8d0018c90156ca9e/artifacts
+end_time: 1789172611085
+entry_point_name: ''
+experiment_id: '839106514740808667'
+lifecycle_stage: active
+run_id: da49972f5eeb4e9c8d0018c90156ca9e
+run_name: lightgbm_reduced_feature_set_v1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1789172603112
+status: 3
+tags: []
+user_id: varshithtipirneni

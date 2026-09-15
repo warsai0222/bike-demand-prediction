@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/varshithtipirneni/Desktop/Cowork%20Homebase/02%20Projects/Bike%20Demand%20Prediction/mlruns/875399063036632089/ef1f6b9ff6ac4ae58cfe4290d1eb8ddf/artifacts
+end_time: 1789176566284
+entry_point_name: ''
+experiment_id: '875399063036632089'
+lifecycle_stage: active
+run_id: ef1f6b9ff6ac4ae58cfe4290d1eb8ddf
+run_name: log1p_ols_fold_3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1789176566268
+status: 3
+tags: []
+user_id: varshithtipirneni

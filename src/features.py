@@ -24,8 +24,8 @@ def add_rush_hour_flag(df,morning=None,evening=None):
     evening = evening or config.EVENING_RUSH
 
     df=df.copy()
-    is_morning = df['hr'].isin(morning)
-    is_evening = df['hr'].isin(evening)
+    is_morning = df['hr'].between(morning[0], morning[1])
+    is_evening = df['hr'].between(evening[0], evening[1])
     df['is_rush_hour'] = ((is_morning | is_evening) & (df['workingday'] == 1)).astype(int)
     return df
 
@@ -69,12 +69,25 @@ def engineer_all_features(df,target_col= 'cnt'):
     df = add_rush_hour_flag(df)
     return df
 
+def save_processed_features(df, path=None):
+    """Saves the engineered feature dataframe to disk so downstream stages
+    (train.py, evaluate.py) don't need to recompute features from raw data
+    every time -- and so DVC can track this as a versioned pipeline output."""
+    path = path or config.PROCESSED_DATA_PATH
+    path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_parquet(path, index=False)
+    logger.info(f"Saved processed features to {path} ({len(df)} rows, {len(df.columns)} columns)")
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     from src.data import load_raw_data
 
     df = load_raw_data()
     df = engineer_all_features(df, target_col='cnt')
+
+    print(df['is_rush_hour'].value_counts())
+    print(f"Rush hour rate: {df['is_rush_hour'].mean()*100:.1f}%")
+    save_processed_features(df)
 
     print(df.columns.tolist())
 

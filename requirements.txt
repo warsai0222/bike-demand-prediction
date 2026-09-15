@@ -12,3 +12,5 @@ pytest
 python-dotenv
 matplotlib
 ipykernel
+seaborn
+statsmodels

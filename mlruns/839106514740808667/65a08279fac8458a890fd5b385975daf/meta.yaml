@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/varshithtipirneni/Desktop/Cowork%20Homebase/02%20Projects/Bike%20Demand%20Prediction/mlruns/839106514740808667/65a08279fac8458a890fd5b385975daf/artifacts
+end_time: 1789176381323
+entry_point_name: ''
+experiment_id: '839106514740808667'
+lifecycle_stage: active
+run_id: 65a08279fac8458a890fd5b385975daf
+run_name: seasonal_naive_baseline
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1789176381310
+status: 3
+tags: []
+user_id: varshithtipirneni

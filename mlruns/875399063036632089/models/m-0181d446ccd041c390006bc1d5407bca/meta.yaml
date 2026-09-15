@@ -1,0 +1,10 @@
+artifact_location: file:///Users/varshithtipirneni/Desktop/Cowork%20Homebase/02%20Projects/Bike%20Demand%20Prediction/mlruns/875399063036632089/models/m-0181d446ccd041c390006bc1d5407bca/artifacts
+creation_timestamp: 1789176588400
+experiment_id: '875399063036632089'
+last_updated_timestamp: 1789176600456
+model_id: m-0181d446ccd041c390006bc1d5407bca
+model_type: null
+name: model
+source_run_id: dde7ecc9ccc44478965956e7525c08d8
+status: 2
+status_message: null

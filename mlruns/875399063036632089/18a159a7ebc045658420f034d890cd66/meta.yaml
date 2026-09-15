@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/varshithtipirneni/Desktop/Cowork%20Homebase/02%20Projects/Bike%20Demand%20Prediction/mlruns/875399063036632089/18a159a7ebc045658420f034d890cd66/artifacts
+end_time: 1789176567813
+entry_point_name: ''
+experiment_id: '875399063036632089'
+lifecycle_stage: active
+run_id: 18a159a7ebc045658420f034d890cd66
+run_name: negative_binomial_fold_3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1789176567790
+status: 3
+tags: []
+user_id: varshithtipirneni

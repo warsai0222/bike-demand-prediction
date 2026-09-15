@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/varshithtipirneni/Desktop/Cowork%20Homebase/02%20Projects/Bike%20Demand%20Prediction/mlruns/839106514740808667/aa788fcbdb9a4ca189188a9ef49e6ede/artifacts
+end_time: 1789176389666
+entry_point_name: ''
+experiment_id: '839106514740808667'
+lifecycle_stage: active
+run_id: aa788fcbdb9a4ca189188a9ef49e6ede
+run_name: linear_glm_comparison_v1
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1789176387611
+status: 3
+tags: []
+user_id: varshithtipirneni
