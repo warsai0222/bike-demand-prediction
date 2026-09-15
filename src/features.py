@@ -79,7 +79,8 @@ def save_processed_features(df, path=None):
     logger.info(f"Saved processed features to {path} ({len(df)} rows, {len(df.columns)} columns)")
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    from src.logging_config import setup_logging
+    setup_logging()
     from src.data import load_raw_data
 
     df = load_raw_data()

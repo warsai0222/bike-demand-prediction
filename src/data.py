@@ -89,7 +89,8 @@ def get_fold(data, train_end_exclusive,val_start,val_end_inclusive,date_col='dte
     return train_fold,val_fold
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    from src.logging_config import setup_logging
+    setup_logging()
     df = load_raw_data()
     dev_df, test_df = chronological_split(df)
     for i, (train_end, val_start, val_end) in enumerate(config.FOLD_BOUNDARIES):

@@ -1,6 +1,5 @@
 import logging
 
-import joblib
 import json
 import numpy as np
 import pandas as pd
@@ -8,24 +7,13 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import mean_absolute_error, mean_squared_error, mean_absolute_percentage_error
 
 from src import config
+from src.predict import load_current_model
 
 logger = logging.getLogger(__name__)
 
 
 def mape(y_true, y_pred):
     return mean_absolute_percentage_error(y_true, y_pred) * 100
-
-
-def load_current_model():
-    """Reads the registry pointer written by train.py and loads that exact
-    model file -- never hardcode a filename, always go through the pointer.
-    """
-    with open(config.MODEL_REGISTRY_PATH) as f:
-        registry = json.load(f)
-    model_path = config.MODELS_DIR / registry["current_model"]
-    logger.info(f"Loading current model: {model_path}")
-    model = joblib.load(model_path)
-    return model, registry
 
 
 def load_test_data():
@@ -188,5 +176,6 @@ def evaluate():
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    from src.logging_config import setup_logging
+    setup_logging()
     evaluate()

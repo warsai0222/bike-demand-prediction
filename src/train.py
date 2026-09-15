@@ -151,7 +151,8 @@ def train():
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    from src.logging_config import setup_logging
+    setup_logging()
     train()
     
 
