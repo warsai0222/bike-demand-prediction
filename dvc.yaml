@@ -1,0 +1,19 @@
+stages:
+  featurize:
+    cmd: python -m src.features
+    deps:
+      - src/features.py
+      - src/data.py
+      - src/config.py
+      - data/raw/hour.csv
+    params:
+      - params.yaml:
+          - features.feature_cols
+          - features.categorical_features
+          - features.trail_avg_window_weeks
+          - features.rush_hour
+          - split.test_start
+          - split.test_end
+          - split.folds
+    outs:
+      - data/processed/features.parquet
