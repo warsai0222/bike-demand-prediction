@@ -9,8 +9,8 @@ stages:
       size: 1156736
     - path: src/config.py
       hash: md5
-      md5: 70229f0ca774a3710b12676a8bb2d904
-      size: 2629
+      md5: 41a49db949c21e04109f5b8f0af7c6d3
+      size: 2685
     - path: src/data.py
       hash: md5
       md5: 0ff82c9cc46ac63179090a35ea8cc5ee
@@ -69,3 +69,126 @@ stages:
       hash: md5
       md5: b68628c791adebfb6af13bf91e2fffc4
       size: 669867
+  train:
+    cmd: python -m src.train
+    deps:
+    - path: data/processed/features.parquet
+      hash: md5
+      md5: b68628c791adebfb6af13bf91e2fffc4
+      size: 669867
+    - path: src/config.py
+      hash: md5
+      md5: 41a49db949c21e04109f5b8f0af7c6d3
+      size: 2685
+    - path: src/train.py
+      hash: md5
+      md5: 571ff0c5497d7c33eca471f8c3396b4f
+      size: 5356
+    params:
+      params.yaml:
+        features.categorical_features:
+        - season
+        - weathersit
+        - weekday
+        - mnth
+        - hr
+        features.feature_cols:
+        - hr
+        - weekday
+        - mnth
+        - season
+        - holiday
+        - workingday
+        - weathersit
+        - temp
+        - hum
+        - windspeed
+        - days_since_start
+        - cnt_lag_24h
+        - cnt_avg_prev_24h
+        - cnt_avg_prev_7d
+        - cnt_trail_avg_hr_wd_8w
+        - is_rush_hour
+        mlflow.experiment_name: bike_demand_prediction_v3
+        model.params:
+          num_leaves: 32
+          learning_rate: 0.05
+          n_estimators: 300
+          min_child_samples: 40
+          random_state: 42
+          verbose: -1
+        model.target_col: cnt
+        split.folds:
+        - - '2012-05-01'
+          - '2012-05-01'
+          - '2012-06-30'
+        - - '2012-07-01'
+          - '2012-07-01'
+          - '2012-08-31'
+        - - '2012-09-01'
+          - '2012-09-01'
+          - '2012-10-31'
+        split.test_start: '2012-11-01'
+    outs:
+    - path: models/current.json
+      hash: md5
+      md5: 96f208c16b3f73332e08cc6007179e03
+      size: 364
+  evaluate:
+    cmd: python -m src.evaluate
+    deps:
+    - path: data/processed/features.parquet
+      hash: md5
+      md5: b68628c791adebfb6af13bf91e2fffc4
+      size: 669867
+    - path: models/current.json
+      hash: md5
+      md5: 96f208c16b3f73332e08cc6007179e03
+      size: 364
+    - path: src/config.py
+      hash: md5
+      md5: 41a49db949c21e04109f5b8f0af7c6d3
+      size: 2685
+    - path: src/evaluate.py
+      hash: md5
+      md5: a94369bf9152ef745a61f63019cff9bd
+      size: 7089
+    params:
+      params.yaml:
+        features.feature_cols:
+        - hr
+        - weekday
+        - mnth
+        - season
+        - holiday
+        - workingday
+        - weathersit
+        - temp
+        - hum
+        - windspeed
+        - days_since_start
+        - cnt_lag_24h
+        - cnt_avg_prev_24h
+        - cnt_avg_prev_7d
+        - cnt_trail_avg_hr_wd_8w
+        - is_rush_hour
+        model.target_col: cnt
+        split.test_end: '2012-12-31'
+        split.test_start: '2012-11-01'
+    outs:
+    - path: reports/figures/residual_distribution.png
+      hash: md5
+      md5: 4e5b54bee1cb833b87dcbbd88053163c
+      size: 19867
+    - path: reports/figures/residuals_over_time.png
+      hash: md5
+      md5: f615c9d67136746a94dc62c52f903306
+      size: 88502
+    - path: reports/figures/residuals_vs_predicted.png
+      hash: md5
+      md5: e7a3cf3385dff793eadb97cb091137af
+      size: 89094
+    - path: reports/metrics.json
+      hash: md5
+      md5: 5bc947fc728fb4c1e816296f97778ffe
+      size: 210

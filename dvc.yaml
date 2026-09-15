@@ -17,3 +17,42 @@ stages:
           - split.folds
     outs:
       - data/processed/features.parquet
+
+  train:
+    cmd: python -m src.train
+    deps:
+      - src/train.py
+      - src/config.py
+      - data/processed/features.parquet
+    params:
+      - params.yaml:
+          - model.target_col
+          - model.params
+          - features.feature_cols
+          - features.categorical_features
+          - split.test_start
+          - split.folds
+          - mlflow.experiment_name
+    outs:
+      - models/current.json
+  
+  evaluate:
+    cmd: python -m src.evaluate
+    deps:
+      - src/evaluate.py
+      - src/config.py
+      - models/current.json
+      - data/processed/features.parquet
+    params:
+      - params.yaml:
+          - features.feature_cols
+          - model.target_col
+          - split.test_start
+          - split.test_end
+    outs:
+      - reports/figures/residuals_vs_predicted.png
+      - reports/figures/residual_distribution.png
+      - reports/figures/residuals_over_time.png
+    metrics:
+      - reports/metrics.json:
+          cache: false

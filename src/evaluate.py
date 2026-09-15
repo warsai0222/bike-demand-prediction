@@ -98,6 +98,27 @@ def residual_bias_check(test_final, target_col=None):
     return mean_residual
 
 
+def save_metrics(model_metrics, naive_metrics, path=None):
+    """Writes scalar test metrics to a small JSON file DVC can track as a
+    'metrics' output -- this is what makes `dvc metrics diff` meaningful
+    across commits (e.g. comparing this training run's test MAE against
+    last week's).
+    """
+    path = path or (config.PROJECT_ROOT / "reports" / "metrics.json")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    metrics = {
+        "test_mae": model_metrics["mae"],
+        "test_rmse": model_metrics["rmse"],
+        "test_mape": model_metrics["mape"],
+        "naive_mae": naive_metrics["mae"],
+        "naive_rmse": naive_metrics["rmse"],
+        "naive_mape": naive_metrics["mape"],
+    }
+    with open(path, "w") as f:
+        json.dump(metrics, f, indent=2)
+    logger.info(f"Saved metrics to {path}")
+
+
 def plot_residuals(test_final, out_dir=None):
     """Saves the three diagnostic plots from the notebook: residuals vs
     predicted (heteroscedasticity check), residual distribution, and
@@ -157,6 +178,7 @@ def evaluate():
     residual_bias_check(test_final)
     tables = residual_breakdown_tables(test_final)
     plot_residuals(test_final)
+    save_metrics(model_metrics, naive_metrics)
 
     return {
         "model_metrics": model_metrics,
