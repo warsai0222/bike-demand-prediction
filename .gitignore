@@ -2,3 +2,10 @@
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+.DS_Store
+logs/
+mlflow.db
+mlruns/
+models/*.pkl
+models/current.json
+monitoring/*.csv

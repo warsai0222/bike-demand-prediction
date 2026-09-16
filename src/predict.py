@@ -64,12 +64,42 @@ def predict_new_raw(new_raw_df, historical_raw_df=None, target_col=None):
         from src.data import load_raw_data
         historical_raw_df = load_raw_data()
 
-    combined = pd.concat([historical_raw_df, new_raw_df], ignore_index=True)
+    # engineer_all_features() sorts everything by timestamp internally
+    # (build_lag_rolling_features), so the new row does NOT stay at the
+    # tail of the dataframe unless its timestamp is chronologically after
+    # every historical row. Selecting "the last N rows by position" broke
+    # silently for any backtest date -- it grabbed whatever real historical
+    # row happened to land at that position after sorting, which is why
+    # predictions looked constant regardless of the input. A boolean
+    # marker column survives the sort/merge pipeline and identifies the
+    # new rows correctly no matter where they end up.
+    new_keys = set(zip(
+        pd.to_datetime(new_raw_df["dteday"]).dt.normalize(), new_raw_df["hr"],
+    ))
+    hist_keys = list(zip(
+        pd.to_datetime(historical_raw_df["dteday"]).dt.normalize(), historical_raw_df["hr"],
+    ))
+    # If the requested (date, hour) already has a real historical row
+    # (backtesting an hour that actually happened), drop that historical
+    # row before concatenating. Otherwise the lag-feature merge in
+    # build_lag_rolling_features (a left join on timestamp) hits a
+    # duplicate key and multiplies rows -- silently corrupting the result
+    # rather than raising an error.
+    keep_mask = [k not in new_keys for k in hist_keys]
+    n_dropped = len(keep_mask) - sum(keep_mask)
+    if n_dropped:
+        logger.info(f"Backtest overlaps {n_dropped} existing historical row(s); using the requested input instead")
+    historical_filtered = historical_raw_df.loc[keep_mask].copy()
+
+    historical_filtered["_is_new_row"] = False
+    new_marked = new_raw_df.copy()
+    new_marked["_is_new_row"] = True
+
+    combined = pd.concat([historical_filtered, new_marked], ignore_index=True)
     combined = engineer_all_features(combined, target_col=target_col)
 
     model, _ = load_current_model()
-    new_start_idx = len(historical_raw_df)
-    new_features = combined.iloc[new_start_idx:].reset_index(drop=True)
+    new_features = combined.loc[combined["_is_new_row"]].drop(columns=["_is_new_row"]).reset_index(drop=True)
 
     preds = predict_on_features(model, new_features)
     return preds
