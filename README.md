@@ -7,6 +7,8 @@ pipeline, automated testing, simulated drift monitoring with a retrain
 trigger, and an interactive Streamlit dashboard for prediction and
 monitoring.
 
+**Live demo:** https://bike-demand-prediction-project.streamlit.app/
+
 ## Project structure
 
 ```
