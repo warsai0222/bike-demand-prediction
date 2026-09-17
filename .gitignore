@@ -6,6 +6,11 @@ __pycache__/
 logs/
 mlflow.db
 mlruns/
+
+# Model files are DVC's job, EXCEPT the one models/current.json points to --
+# that one is committed directly so a git-only deploy (Streamlit Cloud) has
+# a working model without needing a DVC remote. After retraining, update
+# this line to match the new models/current.json (or just re-run: it's one
+# `git add models/<new-file>.pkl` plus removing the old !allow line below).
 models/*.pkl
-models/current.json
-monitoring/*.csv
+!models/cnt_model_20260915205331.pkl

@@ -1,4 +1,4 @@
-.PHONY: install featurize train evaluate monitor pipeline test mlflow-ui clean
+.PHONY: install featurize train evaluate monitor pipeline test mlflow-ui sync-model clean
 
 install:
 	pip install -r requirements.txt
@@ -25,6 +25,10 @@ test:
 
 mlflow-ui:
 	mlflow ui --backend-store-uri sqlite:///mlflow.db
+
+# Sync the git-committed model artifact after a retrain (see script docstring)
+sync-model:
+	python scripts/sync_deployed_model.py
 
 clean:
 	rm -rf reports/figures/*.png

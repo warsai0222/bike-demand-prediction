@@ -1,0 +1,12 @@
+{
+  "current_model": "cnt_model_20260915205331.pkl",
+  "trained_at": "2026-09-15T20:53:31.130423+00:00",
+  "val_metrics": {
+    "val_mae_mean": 40.14542632311273,
+    "val_mae_std": 3.216704793080474,
+    "val_rmse_mean": 61.60153449596587,
+    "val_rmse_std": 4.947154588716062,
+    "val_mape_mean": 26.91450615193355,
+    "val_mape_std": 0.8083835448400443
+  }
+}
